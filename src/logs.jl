@@ -163,7 +163,7 @@ object, or a filename to be opened and read.  `dt` is the time step
 for each row, `t0` is the optional starting time, `t1` the optional stopping 
 time, and `nthreads` is the number of threads to print.
 """
-function showactivity(io, log::ThreadLog, dt, t0=0, t1=Inf; nthreads=0)
+function showactivity(io::IO, log::ThreadLog, dt, t0=0, t1=Inf; nthreads=0)
     maxj = maximum(j.id for jobs in values(log) for j in jobs)
     width = length(string(maxj)) + 3
 
@@ -188,10 +188,10 @@ function showactivity(io, log::ThreadLog, dt, t0=0, t1=Inf; nthreads=0)
     end
 end
 
-showactivity(io, fname::String, dt, t0=0, t1=Inf; nthreads=0) = showactivity(io, readlog(fname), dt, t0, t1; nthreads=nthreads)
+showactivity(io::IO, fname::String, dt, t0=0, t1=Inf; nthreads=0) = showactivity(io, readlog(fname), dt, t0, t1; nthreads=nthreads)
 showactivity(log::ThreadLog, dt, t0=0, t1=Inf; nthreads=0) = showactivity(Base.stdout, log, dt, t0, t1; nthreads=nthreads)
 showactivity(fname::String, dt, t0=0, t1=Inf; nthreads=0) = showactivity(Base.stdout, readlog(fname), dt, t0, t1; nthreads=nthreads)
-showactivity(io, pool::AbstractThreadPool, dt, t0=0, t1=Inf; nthreads=0) = showactivity(io, pool.log, dt, t0, t1; nthreads=nthreads)
+showactivity(io::IO, pool::AbstractThreadPool, dt, t0=0, t1=Inf; nthreads=0) = showactivity(io, pool.log, dt, t0, t1; nthreads=nthreads)
 showactivity(pool::AbstractThreadPool, dt, t0=0, t1=Inf; nthreads=0) = showactivity(Base.stdout, pool.log, dt, t0, t1; nthreads=nthreads)
 
 

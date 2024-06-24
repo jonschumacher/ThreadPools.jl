@@ -1,4 +1,5 @@
 using Test, ThreadPools
+include("testaqua.jl")
 include("teststatic.jl")
 include("testlogstatic.jl")
 include("testq.jl")

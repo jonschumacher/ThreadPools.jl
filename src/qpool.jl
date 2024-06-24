@@ -83,8 +83,8 @@ end
 Creates a task that runs `fn(args...)` and adds it to the pool, blocking 
 until the pool has an available thread.
 """
-Base.put!(pool::QueuePool, fn, args...) = Base.put!(pool, Task(()->fn(args...)))
-Base.put!(fn, pool::QueuePool, args...) = Base.put!(pool, Task(()->fn(args...)))
+Base.put!(pool::QueuePool, fn::T, args...) where {T <: Function} = Base.put!(pool, Task(()->fn(args...)))
+Base.put!(fn::T, pool::QueuePool, args...) where {T <: Function} = Base.put!(pool, Task(()->fn(args...)))
 
 
 """
